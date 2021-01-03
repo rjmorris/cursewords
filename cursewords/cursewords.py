@@ -343,12 +343,12 @@ class Grid:
 
     def draw_highlighted_cell(self, position):
         value, markup = self.compile_cell(position)
-        value = self.term.underline(value) + markup
+        value = self.term.cyan_underline(value) + markup
         print(self.term.move(*self.to_term(position)) + value)
 
     def draw_cursor_cell(self, position):
         value, markup = self.compile_cell(position)
-        value = self.term.reverse(value) + markup
+        value = self.term.cyan_reverse(value) + markup
         print(self.term.move(*self.to_term(position)) + value)
 
     def get_notification_input(self, message, timeout=5, chars=3,
