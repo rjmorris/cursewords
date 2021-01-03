@@ -836,7 +836,6 @@ def main():
             # First up we draw all the necessary stuff. If the current word
             # is different from the word the last time through the loop:
             if cursor.current_word() is not old_word:
-                overwrite_mode = False
                 for pos in old_word:
                     grid.draw_cell(pos)
                 for pos in cursor.current_word():
@@ -1026,15 +1025,12 @@ def main():
 
             # Letter entry
             elif not puzzle_complete and keypress.isalnum():
-                if not current_cell.is_blankish():
-                    overwrite_mode = True
                 current_cell.entry = keypress.upper()
-
                 if current_cell.marked_wrong:
                     current_cell.marked_wrong = False
                     current_cell.corrected = True
                 modified_since_save = True
-                cursor.advance_within_word(overwrite_mode, wrap_mode=True)
+                cursor.advance_within_word(overwrite_mode=True, wrap_mode=True)
 
             # Delete key
             elif not puzzle_complete and keypress.name == 'KEY_DELETE':
