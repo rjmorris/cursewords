@@ -1044,11 +1044,9 @@ def main():
                 cursor.retreat_within_word(end_placement=True)
 
             # Navigation
-            elif keypress.name in ['KEY_TAB'] and current_cell.is_blankish():
-                cursor.advance_to_next_word(blank_placement=True)
 
-            elif keypress.name in ['KEY_TAB'] and not current_cell.is_blankish():
-                cursor.advance_within_word(overwrite_mode=False)
+            elif keypress.name in ['KEY_TAB']:
+                cursor.advance_to_next_word(blank_placement=False)
 
             elif keypress.name in ['KEY_PGDOWN']:
                 cursor.advance_to_next_word()
