@@ -1047,29 +1047,19 @@ def main():
             elif keypress.name in ['KEY_PGUP']:
                 cursor.retreat_to_previous_word()
 
-            elif (keypress.name == 'KEY_ENTER' or keypress == ' ' or
-                    (cursor.direction == "across" and
-                        keypress.name in ['KEY_DOWN', 'KEY_UP']) or
-                    (cursor.direction == "down" and
-                        keypress.name in ['KEY_LEFT', 'KEY_RIGHT'])):
-
+            elif keypress.name == 'KEY_ENTER' or keypress == ' ':
                 cursor.switch_direction()
                 if not cursor.current_word():
                     cursor.switch_direction()
 
-            elif ((cursor.direction == "across" and
-                        keypress.name == 'KEY_RIGHT') or
-                    (cursor.direction == "down" and
-                        keypress.name == 'KEY_DOWN')):
-
-                cursor.advance()
-
-            elif ((cursor.direction == "across" and
-                        keypress.name == 'KEY_LEFT') or
-                    (cursor.direction == "down" and
-                        keypress.name == 'KEY_UP')):
-
-                cursor.retreat()
+            elif keypress.name == 'KEY_RIGHT':
+                cursor.position = cursor.move_right()
+            elif keypress.name == 'KEY_LEFT':
+                cursor.position = cursor.move_left()
+            elif keypress.name == 'KEY_UP':
+                cursor.position = cursor.move_up()
+            elif keypress.name == 'KEY_DOWN':
+                cursor.position = cursor.move_down()
 
             elif keypress in ['}', ']']:
                 cursor.advance_perpendicular()
