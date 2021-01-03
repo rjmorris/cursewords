@@ -543,7 +543,10 @@ class Cursor:
         current_space = spaces.index(self.position)
         ordered_spaces = spaces[current_space + 1:] + spaces[:current_space]
 
-        return next(iter(ordered_spaces))
+        next_position = next(iter(ordered_spaces))
+        if next_position[1] == self.position[1]:
+            return next_position
+        return self.position
 
     def move_left(self):
         spaces = list(itertools.chain(*self.grid.across_words))
@@ -551,14 +554,20 @@ class Cursor:
         ordered_spaces = (spaces[current_space - 1::-1] +
                           spaces[:current_space:-1])
 
-        return next(iter(ordered_spaces))
+        next_position = next(iter(ordered_spaces))
+        if next_position[1] == self.position[1]:
+            return next_position
+        return self.position
 
     def move_down(self):
         spaces = list(itertools.chain(*self.grid.down_words))
         current_space = spaces.index(self.position)
         ordered_spaces = spaces[current_space + 1:] + spaces[:current_space]
 
-        return next(iter(ordered_spaces))
+        next_position = next(iter(ordered_spaces))
+        if next_position[0] == self.position[0]:
+            return next_position
+        return self.position
 
     def move_up(self):
         spaces = list(itertools.chain(*self.grid.down_words))
@@ -566,7 +575,10 @@ class Cursor:
         ordered_spaces = (spaces[current_space - 1::-1] +
                           spaces[:current_space:-1])
 
-        return next(iter(ordered_spaces))
+        next_position = next(iter(ordered_spaces))
+        if next_position[0] == self.position[0]:
+            return next_position
+        return self.position
 
     def current_word(self):
         pos = self.position
