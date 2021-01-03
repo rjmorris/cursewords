@@ -437,8 +437,6 @@ class Cursor:
         within_pos = self.move_within_word(overwrite_mode, wrap_mode)
         if within_pos:
             self.position = within_pos
-        else:
-            self.advance_to_next_word(blank_placement=True)
 
     def move_within_word(self, overwrite_mode=False, wrap_mode=False):
         word_spaces = self.current_word()
@@ -465,7 +463,7 @@ class Cursor:
         elif not blank_placement and pos_index > 0:
             self.position = self.current_word()[pos_index - 1]
         else:
-            self.retreat_to_previous_word(end_placement, blank_placement)
+            self.position = self.current_word()[0]
 
     def advance_to_next_word(self, blank_placement=False):
         if self.direction == "across":
