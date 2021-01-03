@@ -324,8 +324,6 @@ class Grid:
 
         if cell.marked_wrong:
             value = self.term.red(value.lower())
-        else:
-            value = self.term.bold(value)
 
         markup = ' '
 
