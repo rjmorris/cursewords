@@ -661,8 +661,7 @@ class Timer(threading.Thread):
 
 def small_nums(number):
     small_num = ""
-    num_dict = {"1": "₁", "2": "₂", "3": "₃", "4": "₄", "5": "₅",
-                "6": "₆", "7": "₇", "8": "₈", "9": "₉", "0": "₀"}
+    num_dict = {str(i): str(i) for i in range(10)}
     for digit in str(number):
         small_num += num_dict[digit]
 
