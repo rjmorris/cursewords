@@ -1060,8 +1060,9 @@ def main():
             elif keypress.name in ['KEY_PGDOWN']:
                 cursor.advance_to_next_word()
 
+            # "backtab" aka shift-tab
             elif keypress.name in ['KEY_BTAB']:
-                cursor.retreat_within_word(blank_placement=True)
+                cursor.retreat_to_previous_word(blank_placement=False)
 
             elif keypress.name in ['KEY_PGUP']:
                 cursor.retreat_to_previous_word()
