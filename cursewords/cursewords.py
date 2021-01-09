@@ -1043,6 +1043,14 @@ def main():
             # https://github.com/thisisparker/cursewords/issues/21
             #
             # This implements the behavior I'd like for the backspace key.
+            #
+            # By implementing on the backspace behavior and not the delete
+            # behavior, note that we no longer have a way to clear the last cell
+            # in a word using one of these two keys. (However, see the space
+            # behavior defined below, which does provide this.) Backspace always
+            # deletes the _previous_ cell, and we aren't allowing it to wrap
+            # either to the previous word or from the beginning of a word back
+            # to the end of that same word.
             elif not puzzle_complete and keypress.name == 'KEY_DELETE':
                 current_index = cursor.current_word().index(cursor.position)
                 if current_index > 0:
@@ -1051,6 +1059,14 @@ def main():
                     prev_cell.clear()
                     cursor.position = prev_position
                     modified_since_save = True
+
+            elif not puzzle_complete and keypress == ' ':
+                current_cell.clear()
+                if current_cell.marked_wrong:
+                    current_cell.marked_wrong = False
+                    current_cell.corrected = True
+                modified_since_save = True
+                cursor.advance_within_word(overwrite_mode=True, wrap_mode=True)
 
             # Navigation
 
@@ -1067,7 +1083,7 @@ def main():
             elif keypress.name in ['KEY_PGUP']:
                 cursor.retreat_to_previous_word()
 
-            elif keypress.name == 'KEY_ENTER' or keypress == ' ':
+            elif keypress.name == 'KEY_ENTER':
                 cursor.switch_direction()
                 if not cursor.current_word():
                     cursor.switch_direction()
