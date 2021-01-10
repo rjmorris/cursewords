@@ -1025,28 +1025,11 @@ def main():
                 modified_since_save = True
                 cursor.advance_within_word(overwrite_mode=True, wrap_mode=True)
 
-            # Delete/backspace key
-            #
-            # Note: I'd rather have the backspace key work differently than the
-            # delete key: Backspace should leave the current cell unchanged,
-            # retreat to the previous cell, and clear the previous cell. Delete
-            # should clear the current cell but leave the cursor unmoved.
-            # However, using the backspace key sends KEY_DELETE, just like using
-            # the delete key does, so we can't currently separate their
-            # behavior. There's some discussion about it at
-            # https://blessed.readthedocs.io/en/latest/keyboard.html#delete and
-            # https://github.com/thisisparker/cursewords/issues/21
-            #
-            # This implements the behavior I'd like for the backspace key.
-            #
-            # By implementing on the backspace behavior and not the delete
-            # behavior, note that we no longer have a way to clear the last cell
-            # in a word using one of these two keys. (However, see the space
-            # behavior defined below, which does provide this.) Backspace always
-            # deletes the _previous_ cell, and we aren't allowing it to wrap
-            # either to the previous word or from the beginning of a word back
-            # to the end of that same word.
             elif not puzzle_complete and keypress.name == 'KEY_DELETE':
+                current_cell.clear()
+                modified_since_save = True
+
+            elif not puzzle_complete and keypress.name == 'KEY_BACKSPACE':
                 current_index = cursor.current_word().index(cursor.position)
                 if current_index > 0:
                     prev_position = cursor.current_word()[current_index - 1]
