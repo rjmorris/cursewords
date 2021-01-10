@@ -146,20 +146,16 @@ class Grid:
         middle_row = self.get_middle_row()
         divider_row = self.get_divider_row()
 
-        print(self.term.move(self.grid_y, self.grid_x)
-                + self.term.dim(top_row))
+        print(self.term.move(self.grid_y, self.grid_x) + top_row)
         for index, y_val in enumerate(
                                 range(self.grid_y + 1,
                                       self.grid_y + self.row_count * 2),
                                 1):
             if index % 2 == 0:
-                print(self.term.move(y_val, self.grid_x) +
-                        self.term.dim(divider_row))
+                print(self.term.move(y_val, self.grid_x) + divider_row)
             else:
-                print(self.term.move(y_val, self.grid_x) +
-                        self.term.dim(middle_row))
-        print(self.term.move(self.grid_y + self.row_count * 2, self.grid_x)
-              + self.term.dim(bottom_row))
+                print(self.term.move(y_val, self.grid_x) + middle_row)
+        print(self.term.move(self.grid_y + self.row_count * 2, self.grid_x) + bottom_row)
 
         return None
 
@@ -186,8 +182,7 @@ class Grid:
             if cell.is_letter():
                 self.draw_cell(position)
             elif cell.is_block():
-                print(self.term.move(y_coord, x_coord - 1) +
-                        self.term.dim(chars.squareblock))
+                print(self.term.move(y_coord, x_coord - 1) + chars.squareblock)
 
             if cell.number:
                 small = small_nums(cell.number)
@@ -772,7 +767,7 @@ def main():
             pz_w=pz_width, sw_w=sw_width)
 
     with term.location(x=0, y=0):
-        print(term.dim(term.reverse(headline)))
+        print(term.reverse(headline))
 
     toolbar = ''
     commands = [("^Q", "quit"),
