@@ -282,7 +282,7 @@ class Grid:
 
     def to_term(self, position):
         point_x, point_y = position
-        term_x = self.grid_x + (4 * point_x) + 2
+        term_x = self.grid_x + (4 * point_x) + 1
         term_y = self.grid_y + (2 * point_y) + 1
         return (term_y, term_x)
 
@@ -314,35 +314,32 @@ class Grid:
         else:
             value = cell.entry
 
-        if cell.circled:
-            value = encircle(value)
-
         if cell.marked_wrong:
             value = self.term.red(value.lower())
 
-        markup = ' '
+        pre_markup = ' '
+        post_markup = ' '
 
-        if cell.corrected:
-            markup = self.term.red(".")
-        if cell.revealed:
-            markup = self.term.red(":")
+        if cell.circled:
+            pre_markup = "("
+            post_markup = ")"
 
-        return value, markup
+        return pre_markup, value, post_markup
 
     def draw_cell(self, position):
-        value, markup = self.compile_cell(position)
-        value += markup
-        print(self.term.move(*self.to_term(position)) + value)
+        pre_markup, value, post_markup = self.compile_cell(position)
+        cell_value = pre_markup + value + post_markup
+        print(self.term.move(*self.to_term(position)) + cell_value)
 
     def draw_highlighted_cell(self, position):
-        value, markup = self.compile_cell(position)
-        value = self.term.cyan_underline(value) + markup
-        print(self.term.move(*self.to_term(position)) + value)
+        pre_markup, value, post_markup = self.compile_cell(position)
+        cell_value = pre_markup + self.term.cyan_underline(value) + post_markup
+        print(self.term.move(*self.to_term(position)) + cell_value)
 
     def draw_cursor_cell(self, position):
-        value, markup = self.compile_cell(position)
-        value = self.term.cyan_reverse(value) + markup
-        print(self.term.move(*self.to_term(position)) + value)
+        pre_markup, value, post_markup = self.compile_cell(position)
+        cell_value = pre_markup + self.term.cyan_reverse(value) + post_markup
+        print(self.term.move(*self.to_term(position)) + cell_value)
 
     def get_notification_input(self, message, timeout=5, chars=3,
             input_condition=str.isalnum, blocking=False):
@@ -669,14 +666,6 @@ def small_nums(number):
         small_num += num_dict[digit]
 
     return small_num
-
-def encircle(letter):
-    circle_dict = {"A": "Ⓐ", "B": "Ⓑ", "C": "Ⓒ", "D": "Ⓓ", "E": "Ⓔ", "F": "Ⓕ",
-                   "G": "Ⓖ", "H": "Ⓗ", "I": "Ⓘ", "J": "Ⓙ", "K": "Ⓚ", "L": "Ⓛ",
-                   "M": "Ⓜ", "N": "Ⓝ", "O": "Ⓞ", "P": "Ⓟ", "Q": "Ⓠ", "R": "Ⓡ",
-                   "S": "Ⓢ", "T": "Ⓣ", "U": "Ⓤ", "V": "Ⓥ", "W": "Ⓦ", "X": "Ⓧ",
-                   "Y": "Ⓨ", "Z": "Ⓩ", " ": "◯"}
-    return circle_dict[letter]
 
 
 def main():
