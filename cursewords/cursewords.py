@@ -182,12 +182,11 @@ class Grid:
             if cell.is_letter():
                 self.draw_cell(position)
             elif cell.is_block():
-                print(self.term.move(y_coord, x_coord - 1) + chars.squareblock)
+                print(self.term.move(y_coord, x_coord) + chars.squareblock)
 
             if cell.number:
                 small = small_nums(cell.number)
-                x_pos = x_coord - 1
-                print(self.term.move(y_coord - 1, x_pos) + small)
+                print(self.term.move(y_coord - 1, x_coord) + small)
 
         return None
 
