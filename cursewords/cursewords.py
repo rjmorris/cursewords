@@ -522,6 +522,12 @@ class Cursor:
         elif blank_placement and not self.earliest_blank_in_word():
             self.retreat_to_previous_word(end_placement, blank_placement)
 
+    def move_to_beginning_of_word(self):
+        self.position = self.current_word()[0]
+
+    def move_to_end_of_word(self):
+        self.position = self.current_word()[-1]
+
     def earliest_blank_in_word(self):
         blanks = (pos for pos in self.current_word()
                     if self.grid.cells.get(pos).is_blankish())
@@ -1074,6 +1080,14 @@ def main():
                 if (keypress == '{' and blank_cells_remaining):
                     while not grid.cells.get(cursor.position).is_blankish():
                         cursor.retreat_perpendicular()
+
+            # Ctrl-A
+            elif keypress == chr(1):
+                cursor.move_to_beginning_of_word()
+
+            # Ctrl-E
+            elif keypress == chr(5):
+                cursor.move_to_end_of_word()
 
     print(term.exit_fullscreen())
 
