@@ -1071,6 +1071,7 @@ def main():
 
             elif keypress in ['}', ']']:
                 cursor.advance_perpendicular()
+                # Need to investigate, but this can cause an infinite loop.
                 if (keypress == '}' and blank_cells_remaining):
                     while not grid.cells.get(cursor.position).is_blankish():
                         cursor.advance_perpendicular()
