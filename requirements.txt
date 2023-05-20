@@ -1,2 +1,2 @@
 blessed==1.17.12
-puzpy==0.2.4
+puzpy==0.2.5
