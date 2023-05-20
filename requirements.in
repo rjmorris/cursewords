@@ -1,0 +1,6 @@
+# Dependencies for satisfying setup.py install_requires
+blessed==1.17.12
+puzpy
+
+# Development dependencies
+pip-tools
