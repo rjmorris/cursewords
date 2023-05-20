@@ -1017,7 +1017,7 @@ def main():
                     current_cell.marked_wrong = False
                     current_cell.corrected = True
                 modified_since_save = True
-                cursor.advance_within_word(overwrite_mode=True, wrap_mode=True)
+                cursor.advance_within_word(overwrite_mode=True, wrap_mode=False)
 
             elif not puzzle_complete and keypress.name == 'KEY_DELETE':
                 current_cell.clear()
@@ -1038,7 +1038,7 @@ def main():
                     current_cell.marked_wrong = False
                     current_cell.corrected = True
                 modified_since_save = True
-                cursor.advance_within_word(overwrite_mode=True, wrap_mode=True)
+                cursor.advance_within_word(overwrite_mode=True, wrap_mode=False)
 
             # Navigation
 
